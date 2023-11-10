@@ -1,9 +1,6 @@
 <?php
 
-$finder = PhpCsFixer\Finder::create()
-    ->notPath('bootstrap/*')
-    ->notPath('storage/*')
-    ->notPath('resources/view/mail/*')
+$finder = Symfony\Component\Finder\Finder::create()
     ->in([
         __DIR__ . '/src',
         __DIR__ . '/tests',
@@ -15,7 +12,8 @@ $finder = PhpCsFixer\Finder::create()
 
 return (new PhpCsFixer\Config())
     ->setRules([
-        '@PSR2' => true,
+        '@PSR12' => true,
+        'array_syntax' => ['syntax' => 'short'],
         'ordered_imports' => ['sort_algorithm' => 'alpha'],
         'no_unused_imports' => true,
         'not_operator_with_successor_space' => true,
@@ -32,5 +30,6 @@ return (new PhpCsFixer\Config())
             'on_multiline' => 'ensure_fully_multiline',
             'keep_multiple_spaces_after_comma' => true,
         ],
+        'single_trait_insert_per_statement' => true,
     ])
     ->setFinder($finder);
