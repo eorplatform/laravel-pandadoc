@@ -1,13 +1,14 @@
 <?php
+
 namespace EorPlatform\LaravelPandaDoc\Models;
 
 use EorPlatform\LaravelPandaDoc\Contracts\PandaDocDocumentInterface;
 use EorPlatform\LaravelPandaDoc\Exceptions\PandaDocDocumentDoesNotExists;
 use EorPlatform\LaravelPandaDoc\PandaDocRegistrar;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
-use Illuminate\Database\Eloquent\Collection;
 use Spatie\ModelStatus\HasStatuses;
 
 class PandaDocDocument extends Model implements PandaDocDocumentInterface
@@ -27,7 +28,7 @@ class PandaDocDocument extends Model implements PandaDocDocumentInterface
         'recipients',
         'invite_expire_at',
         'name',
-        'is_queued'
+        'is_queued',
     ];
 
     /**
@@ -38,7 +39,7 @@ class PandaDocDocument extends Model implements PandaDocDocumentInterface
         'recipients' => 'array',
         'invite_expire_at' => 'datetime',
         'is_queued' => 'boolean',
-        'completed_at' => 'datetime'
+        'completed_at' => 'datetime',
     ];
 
 

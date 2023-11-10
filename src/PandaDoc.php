@@ -2,8 +2,8 @@
 
 namespace EorPlatform\LaravelPandaDoc;
 
-use GuzzleHttp\Client;
 use Exception;
+use GuzzleHttp\Client;
 
 class PandaDoc
 {
@@ -48,8 +48,8 @@ class PandaDoc
             'base_uri' => $this->endpoint,
             'headers' => [
                 'Authorization' => 'API-Key ' . $this->apiKey,
-                'Accept' => 'application/json'
-            ]
+                'Accept' => 'application/json',
+            ],
         ]);
     }
 
@@ -74,8 +74,8 @@ class PandaDoc
                     'json' => [
                         'subject' => $subject,
                         'message' => $message,
-                        'silent' => $silent
-                    ]
+                        'silent' => $silent,
+                    ],
                 ]
             );
 
@@ -103,11 +103,11 @@ class PandaDoc
                 'GET',
                 config('pandadoc.api_endpoints.documents.list'),
                 [
-                    'query' => $queryParams
+                    'query' => $queryParams,
                 ]
             );
             $body = $this->parseBody($response->getBody());
-        } catch ( Exception $exception ) {
+        } catch (Exception $exception) {
             throw new Exception($exception->getMessage());
         }
 
@@ -127,12 +127,14 @@ class PandaDoc
     public function getDocumentStatus($documentId): mixed
     {
         try {
-            $response = $this->client->request('GET',
-                str_replace(config('pandadoc.api_endpoints.documents.get_status'), '{id}', $documentId));
+            $response = $this->client->request(
+                'GET',
+                str_replace(config('pandadoc.api_endpoints.documents.get_status'), '{id}', $documentId)
+            );
 
             $body = $this->parseBody($response->getBody());
 
-        } catch ( Exception $exception ) {
+        } catch (Exception $exception) {
             throw new Exception($exception->getMessage());
         }
 
@@ -158,7 +160,7 @@ class PandaDoc
             );
 
 
-        } catch ( Exception $exception ) {
+        } catch (Exception $exception) {
             throw new Exception($exception->getMessage());
         }
     }
@@ -180,14 +182,13 @@ class PandaDoc
         string $lastName,
         string $role,
         int $signingOrder,
-    ): static
-    {
+    ): static {
         $this->recipients[] = [
             'email' => $email,
             'first_name' => $firstName,
             'last_name' => $lastName,
             'role' => $role,
-            'signing_order' => $signingOrder
+            'signing_order' => $signingOrder,
         ];
 
         return $this;
@@ -206,7 +207,7 @@ class PandaDoc
     {
         $this->tokens[] = [
             'name' => $role . '.' . $field,
-            'value' => $value
+            'value' => $value,
         ];
 
         return $this;
@@ -228,8 +229,8 @@ class PandaDoc
             'recipients' => $this->recipients,
             'tokens' => $this->tokens,
             'tags' => [
-                'created_via_api'
-            ]
+                'created_via_api',
+            ],
         ];
 
         try {
@@ -237,13 +238,13 @@ class PandaDoc
                 'POST',
                 config('pandadoc.api_endpoints.documents.create'),
                 [
-                    'json' => $data
+                    'json' => $data,
                 ]
             );
 
             $body = $this->parseBody($response->getBody());
 
-        } catch ( Exception $exception ) {
+        } catch (Exception $exception) {
             throw new Exception($exception->getMessage());
         }
 
@@ -252,7 +253,7 @@ class PandaDoc
             'status' => $body['status'],
             'tokens' => $this->tokens,
             'recipients' => $this->recipients,
-            'template_id' => $templateID
+            'template_id' => $templateID,
         ];
     }
 
@@ -262,11 +263,11 @@ class PandaDoc
      */
     public function validate(): void
     {
-        if ( empty($this->recipients) ) {
+        if (empty($this->recipients)) {
             throw new Exception('Recipient array cannot be empty!');
         }
 
-        if ( empty( $this->tokens ) ) {
+        if (empty($this->tokens)) {
             throw new Exception('Tokens array should not be empty!');
         }
     }

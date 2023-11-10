@@ -13,17 +13,17 @@ class PandaDocWebhookProcess
         // get the body and parse
         $payload = $this->webhookCall->payload;
 
-        if ( !empty( $payload[0] ) ) {
+        if (! empty($payload[0])) {
 
             $body = $payload[0];
 
-            if ( isset( $body['event'] ) && $body['event'] === 'document_state_changed' ) {
+            if (isset($body['event']) && $body['event'] === 'document_state_changed') {
 
                 $model = app(PandaDocRegistrar::class)->getPandaDocModelClass();
 
                 $doc = $model::findById($body['data']['id']);
 
-                if ( !$doc ) {
+                if (! $doc) {
                     return; // die silently because maybe is request from another environment
                 }
 

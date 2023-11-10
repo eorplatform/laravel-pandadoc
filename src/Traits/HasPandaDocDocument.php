@@ -14,6 +14,7 @@ trait HasPandaDocDocument
         if (! $this->pandaDocDocumentModelClass) {
             $this->pandaDocDocumentModelClass = app(PandaDocRegistrar::class)->getPandaDocModelClass();
         }
+
         return $this->pandaDocDocumentModelClass;
     }
 

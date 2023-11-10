@@ -10,7 +10,6 @@ use Spatie\WebhookClient\WebhookConfig;
 
 class PandaDocWebhookSignatureValidator implements SignatureValidator
 {
-
     public function isValid(Request $request, WebhookConfig $config): bool
     {
         $signature = $request->get($config->signatureHeaderName);
