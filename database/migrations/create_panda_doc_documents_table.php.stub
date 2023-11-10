@@ -1,0 +1,51 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+
+        $tableName = config('pandadoc.table_name');
+
+        if (empty($tableName)) {
+            throw new \Exception('Error: config/pandadoc.php not loaded. Run [php artisan config:clear] and try again.');
+        }
+
+
+        Schema::create($tableName, function (Blueprint $table) {
+            $table->ulid('id')->primary();
+            $table->ulidMorphs('documentable');
+            $table->string('document_id')->nullable()->index();
+            $table->string('template_id')->nullable();
+            $table->string('name');
+            $table->json('tokens')->nullable();
+            $table->json('recipients')->nullable();
+            $table->boolean('is_queued')->default(true);
+            $table->timestamp('completed_at')->nullable();
+            $table->timestamp('invite_expire_at')->nullable();
+            $table->timestamps();
+        });
+    }
+
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        $tableName = config('pandadoc.table_name');
+
+        if (empty($tableName)) {
+            throw new \Exception('Error: config/pandadoc.php not loaded. Run [php artisan config:clear] and try again.');
+        }
+
+        Schema::dropIfExists($tableName);
+    }
+};

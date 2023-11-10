@@ -1,0 +1,65 @@
+{
+    "name": "eorplatform/laravel-pandadoc",
+    "description": "Laravel package for dealing with PandaDoc API e-signature platform",
+    "license": "MIT",
+    "keywords": [
+        "reployer",
+        "laravel-pandadoc",
+        "e-signature-api",
+        "e-sign",
+        "laravel"
+    ],
+    "authors": [
+        {
+            "name": "Goran Krgovic",
+            "email": "goran@reployer.co",
+            "homepage": "https://www.reployer.co",
+            "role": "Developer"
+        }
+    ],
+    "homepage": "https://github.com/eorplatform/laravel-pandadoc",
+    "require": {
+        "php": "^8.1",
+        "illuminate/http": "^10.0",
+        "illuminate/support": "^10.0",
+        "spatie/laravel-model-status": "^1.14",
+        "spatie/laravel-package-tools": "^1.16",
+        "spatie/laravel-webhook-client": "^3.2"
+    },
+    "require-dev": {
+        "mockery/mockery": "^1.3.3",
+        "orchestra/testbench": "^8.0",
+        "pestphp/pest": "^1.21.2"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "EorPlatform\\LaravelPandaDoc\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "EorPlatform\\LaravelPandaDoc\\": "tests"
+        }
+    },
+    "scripts": {
+        "lint": "php-cs-fixer fix",
+        "test": "vendor/bin/pest",
+        "test-coverage": "pest --coverage-html coverage"
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "phpstan/extension-installer": true,
+            "pestphp/pest-plugin": true
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "EorPlatform\\LaravelPandaDoc\\LaravelPandaDocServiceProvider"
+            ]
+        }
+    }
+}
